@@ -77,7 +77,7 @@ jobs:
       run: echo 'placeholder'
       
   deploy-test:
-    needs: build
+    needs: deploy-dev
     name: deploy to test
     runs-on: ubuntu-latest
     environment: test
@@ -87,7 +87,7 @@ jobs:
       run: echo 'placeholder'
       
   deploy-prod:
-    needs: build
+    needs: deploy-test
     name: deploy to prod
     runs-on: ubuntu-latest
     environment: prod
