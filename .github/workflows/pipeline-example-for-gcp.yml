@@ -22,6 +22,7 @@ jobs:
     needs: build
     name: deploy to dev
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
     environment: dev
     
     steps:
