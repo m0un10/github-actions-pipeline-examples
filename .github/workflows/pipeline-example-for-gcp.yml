@@ -35,6 +35,7 @@ jobs:
     needs: deploy-dev
     name: deploy to test
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
     environment: test
     
     steps:
@@ -45,6 +46,7 @@ jobs:
     needs: deploy-test
     name: deploy to prod
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
     environment: prod
     
     steps:
