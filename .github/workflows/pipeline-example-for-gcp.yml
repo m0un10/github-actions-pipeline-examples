@@ -1,9 +1,6 @@
 name: CI/CD Pipeline for GCP
 
-on:
-  push:
-    branches:
-    - main
+on: push
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -21,10 +18,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
+    - name: Slack notification
+      run: echo "blah"
+      if: always() # Pick up events even if the job fails or is canceled.
+
   deploy-dev:
     needs: build
     name: deploy to dev
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
     environment: dev
     
     steps:
@@ -35,6 +37,7 @@ jobs:
     needs: deploy-dev
     name: deploy to test
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
     environment: test
     
     steps:
@@ -45,6 +48,7 @@ jobs:
     needs: deploy-test
     name: deploy to prod
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
     environment: prod
     
     steps:
