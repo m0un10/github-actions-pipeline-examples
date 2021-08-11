@@ -18,6 +18,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
+    - name: Slack notification
+      run: echo "blah"
+      if: always() # Pick up events even if the job fails or is canceled.
+
   deploy-dev:
     needs: build
     name: deploy to dev
